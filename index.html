@@ -6,9 +6,19 @@
 
   <title>AR Sofa</title>
 
-  <script type="module"
-    src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js">
-  </script>
+  <script>
+  const sofa = document.querySelector("#sofa");
+
+  sofa.addEventListener("load", () => {
+    const materials = sofa.model.materials;
+
+    alert("Your model has " + materials.length + " materials.");
+
+    materials.forEach((material, index) => {
+      console.log("Material " + index + ":", material.name);
+    });
+  });
+</script>
 
   <style>
     body {
