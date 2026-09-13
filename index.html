@@ -6,19 +6,9 @@
 
   <title>AR Sofa</title>
 
-  <script>
-  const sofa = document.querySelector("#sofa");
-
-  sofa.addEventListener("load", () => {
-    const materials = sofa.model.materials;
-
-    alert("Your model has " + materials.length + " materials.");
-
-    materials.forEach((material, index) => {
-      console.log("Material " + index + ":", material.name);
-    });
-  });
-</script>
+  <script type="module"
+    src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js">
+  </script>
 
   <style>
     body {
@@ -40,7 +30,7 @@
 
     model-viewer {
       width: 100%;
-      height: 65vh;
+      height: 70vh;
       background-color: #eee;
     }
 
@@ -52,13 +42,6 @@
       background: #6b3568;
       color: white;
       font-size: 16px;
-      cursor: pointer;
-    }
-
-    #colorName {
-      font-weight: bold;
-      color: #4b244a;
-      margin-top: 5px;
     }
   </style>
 </head>
@@ -70,7 +53,6 @@
   <p>View the sofa in 3D or place it in your space using AR.</p>
 
   <model-viewer
-    id="sofa"
     src="sofa.glb"
     alt="3D model of a sofa"
     camera-controls
@@ -80,58 +62,6 @@
     shadow-intensity="1"
     exposure="1">
   </model-viewer>
-
-  <div id="colorName">Beige Sofa + Light Brown Pillow</div>
-
-  <button onclick="changeColor()">Change Color</button>
-
-  <script>
-    const sofa = document.querySelector("#sofa");
-
-    let colorOption = 0;
-
-    const colors = [
-      {
-        name: "Beige Sofa + Light Brown Pillow",
-        sofa: [0.76, 0.68, 0.55, 1],
-        pillow: [0.55, 0.38, 0.24, 1]
-      },
-      {
-        name: "Dark Blue Sofa + Cream Pillow",
-        sofa: [0.04, 0.10, 0.30, 1],
-        pillow: [0.90, 0.84, 0.70, 1]
-      },
-      {
-        name: "Sage Green Sofa + Black Pillow",
-        sofa: [0.42, 0.55, 0.43, 1],
-        pillow: [0.03, 0.03, 0.03, 1]
-      }
-    ];
-
-    sofa.addEventListener("load", () => {
-      console.log("Number of materials:", sofa.model.materials.length);
-    });
-
-    function changeColor() {
-      colorOption = (colorOption + 1) % colors.length;
-
-      const option = colors[colorOption];
-
-      const materials = sofa.model.materials;
-
-      materials.forEach((material, index) => {
-
-        if (index === 0) {
-          material.pbrMetallicRoughness.setBaseColorFactor(option.sofa);
-        } else {
-          material.pbrMetallicRoughness.setBaseColorFactor(option.pillow);
-        }
-
-      });
-
-      document.getElementById("colorName").textContent = option.name;
-    }
-  </script>
 
 </body>
 </html>
